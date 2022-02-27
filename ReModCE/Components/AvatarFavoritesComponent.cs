@@ -76,7 +76,7 @@ namespace ReModCE.Components
             {
                 _favoriteAvatarList.SetMaxAvatarsPerPage(MaxAvatarsPerPage);
             };
-            
+
             _savedAvatars = new List<ReAvatar>();
             _searchedAvatars = new AvatarList();
 
@@ -105,7 +105,7 @@ namespace ReModCE.Components
             vrHeadset = vrHeadset.Replace(' ', '_');
 
             _userAgent = $"ReModCE/{vrHeadset}.{Application.version} (Windows NT 10.0; Win64; x64)";
-            
+
             _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(_userAgent);
         }
 
@@ -235,7 +235,7 @@ namespace ReModCE.Components
                 {
                     if (_searchBox.field_Public_UnityAction_1_String_0 == null)
                         return;
-                    
+
                     if (_searchBox.field_Public_UnityAction_1_String_0.method != _overrideSearchAvatarsAction.method)
                     {
                         if (_emmVRCsearchAvatarsAction == null)
@@ -293,7 +293,7 @@ namespace ReModCE.Components
             }
 
             var request = new HttpRequestMessage(HttpMethod.Get, $"{ApiUrl}/search.php?searchTerm={searchTerm}");
-            
+
             _httpClient.SendAsync(request).ContinueWith(rsp =>
             {
                 var searchResponse = rsp.Result;
@@ -483,15 +483,15 @@ namespace ReModCE.Components
 
         private void FavoriteAvatar(ApiAvatar apiAvatar)
         {
-            var isSupporter = APIUser.CurrentUser.isSupporter;
+            /*var isSupporter = APIUser.CurrentUser.isSupporter;
             if (!isSupporter)
             {
                 VRCUiPopupManager.prop_VRCUiPopupManager_0.ShowAlert("ReMod CE", "You need VRC+ to use this feature.\nWe're not trying to destroy VRChat's monetization.");
                 return;
-            }
+            }*/
 
             var hasFavorited = HasAvatarFavorited(apiAvatar.id);
-            
+
             SendAvatarRequest(hasFavorited ? HttpMethod.Delete : HttpMethod.Put, favResponse =>
             {
                 if (!favResponse.IsSuccessStatusCode)
@@ -506,10 +506,13 @@ namespace ReModCE.Components
                     favResponse.Content.ReadAsStringAsync().ContinueWith(errorData =>
                     {
                         var errorMessage = JsonConvert.DeserializeObject<ApiError>(errorData.Result).Error;
-                        ReLogger.Error($"Could not (un)favorite avatar: \"{errorMessage}\"");
-                        if (favResponse.StatusCode == HttpStatusCode.Forbidden)
+                        if (!errorMessage.Contains("You need VRC+"))
                         {
-                            MelonCoroutines.Start(ShowAlertDelayed($"Could not (un)favorite avatar\nReason: \"{errorMessage}\""));
+                            ReLogger.Error($"Could not (un)favorite avatar: \"{errorMessage}\"");
+                            if (favResponse.StatusCode == HttpStatusCode.Forbidden)
+                            {
+                                MelonCoroutines.Start(ShowAlertDelayed($"Could not (un)favorite avatar\nReason: \"{errorMessage}\""));
+                            }
                         }
                     });
                 }
@@ -542,7 +545,7 @@ namespace ReModCE.Components
             {
                 request.Content = new StringContent(avater.ToJson(), Encoding.UTF8, "application/json");
             }
-            
+
             _httpClient.SendAsync(request).ContinueWith(t => onResponse(t.Result));
         }
 

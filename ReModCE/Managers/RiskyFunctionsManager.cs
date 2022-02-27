@@ -51,7 +51,7 @@ namespace ReModCE.Managers
                 tags.Add(tag.ToLower());
             }
 
-            var hasBlacklistedTag = _blacklistedTags.Any(tag => tags.Contains(tag));
+            /*var hasBlacklistedTag = _blacklistedTags.Any(tag => tags.Contains(tag));
             var riskyFunctionAllowed = !worldName.Contains("club") && !worldName.Contains("game") && !hasBlacklistedTag;
 
             var rootGameObjects = SceneManager.GetActiveScene().GetRootGameObjects();
@@ -65,7 +65,8 @@ namespace ReModCE.Managers
             }
 
             RiskyFunctionAllowed = riskyFunctionAllowed;
-            OnRiskyFunctionsChanged?.Invoke(RiskyFunctionAllowed);
+            OnRiskyFunctionsChanged?.Invoke(RiskyFunctionAllowed);*/
+            OnRiskyFunctionsChanged?.Invoke(true);
         }
     }
 }
