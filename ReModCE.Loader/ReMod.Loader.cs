@@ -18,7 +18,7 @@ namespace ReModCE.Loader
         public const string Name = "ReModCE";
         public const string Author = "Requi, FenrixTheFox, Xaiver, Potato, Psychloor";
         public const string Company = null;
-        public const string Version = "1.0.0.4";
+        public const string Version = "6.9.6.9";
         public const string DownloadLink = "https://github.com/RequiDev/ReModCE/releases/latest/";
     }
 
