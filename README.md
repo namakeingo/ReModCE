@@ -4,6 +4,7 @@
 [![All Releases](https://img.shields.io/github/downloads/RequiDev/ReModCE/total.svg?style=for-the-badge&logo=appveyor)](https://github.com/RequiDev/ReModCE/releases)
 [![All Releases](https://img.shields.io/github/downloads/RequiDev/ReModCE/latest/total.svg?style=for-the-badge&logo=appveyor)](https://github.com/RequiDev/ReModCE/releases/latest)
 
+![ReModCE Logo](https://github.com/RequiDev/ReModCE/raw/master/remod_ce_logo.png)
 
 ReMod Community Edition - A All-in-One VRChat mod to suit all your needs using [MelonLoader](https://github.com/LavaGang/MelonLoader)
 # **You need at least MelonLoader v0.5.3 since VRChat Build 1169!**
@@ -11,11 +12,11 @@ ReMod Community Edition - A All-in-One VRChat mod to suit all your needs using [
 ## Description
 This is essentially a public version of my invite-only VRChat mod. It's a cut-down version with no connection to the ReMod server and with it's security measures removed.  
 
-If you want a feature or have a bug report, head over to the issues page and create an issue for it!
+If you want a feature or have a bug report, head over to the issues page and create an issue for it!  
+
+**Powered by [ReMod.Core](https://github.com/RequiDev/ReMod.Core/)**
 
 ## Installation & Usage
-Disclaimer: ReModCE is not functional on the Oculus version of VRChat. You'll have to use the Steam version.  
-
 Grab the latest loader from [here](https://api.vrcmg.com/v0/mods/246/ReModCE.Loader.dll) and put it in your Mods directory.  
 
 By default the loader will attempt to load the mod from your VRChat directory using the filename 'ReModCE.dll'. If it doesn't exist, it will attempt to download the latest Version from GitHub.  
