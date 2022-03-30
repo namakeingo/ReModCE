@@ -23,6 +23,7 @@ using UnityEngine.XR;
 using VRC.Core;
 using VRC.SDKBase.Validation.Performance.Stats;
 using AvatarList = Il2CppSystem.Collections.Generic.List<VRC.Core.ApiAvatar>;
+using BuildInfo = ReModCE.Loader.BuildInfo;
 
 namespace ReModCE.Components
 {
