@@ -7,7 +7,7 @@
 ![ReModCE Logo](https://github.com/RequiDev/ReModCE/raw/master/remod_ce_logo.png)
 
 ReMod Community Edition - A All-in-One VRChat mod to suit all your needs using [MelonLoader](https://github.com/LavaGang/MelonLoader)
-# **You need at least MelonLoader v0.5.3 since VRChat Build 1169!**
+# **You need at least MelonLoader v0.5.4!**
 
 ## Description
 This is essentially a public version of my invite-only VRChat mod. It's a cut-down version with no connection to the ReMod server and with it's security measures removed.  
@@ -38,7 +38,6 @@ In case you want to update you can always grab the latest and even previous vers
 * Wireframe ESP (Players, Pickups, World) (Not usable in Game/Club worlds)
 * Third Person (Not usable in Game/Club worlds)
 * Small UI adjustments like adding a "Paste" button to input popups
-* FBT Calibration Saver as already seen at [RequiDev/FBTSaver](https://github.com/RequiDev/FBTSaver)
 * Teleport to other players (Not usable in Game/Club worlds)
 * Media Controls which syncs with your Spotify
 * Quickly restart in either desktop or VR and automatically teleport to back where you were.

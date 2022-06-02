@@ -1,62 +1,66 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>ReModCE.Loader</AssemblyName>
+    <ProjectGuid>{6E5E0E59-73D9-4D74-B734-D040D26710C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReModCE.Loader</RootNamespace>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ReModCE.Loader</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <Private>false</Private>
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>$(VRChatPath)MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Il2Cppmscorlib">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\ml\Managed\Assembly-CSharp.dll</HintPath>
       <HintPath>$(VRChatPath)MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>..\3rdparty\ml\Managed\Il2Cppmscorlib.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="MelonLoader">
-      <Private>false</Private>
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>$(VRChatPath)MelonLoader\MelonLoader.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\ml\MelonLoader.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="UnhollowerBaseLib">
       <HintPath>$(VRChatPath)MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
+    <Reference Include="UnhollowerBaseLib">
+      <HintPath>..\3rdparty\ml\Managed\UnhollowerBaseLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine">
-      <Private>false</Private>
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>$(VRChatPath)MelonLoader\Managed\UnityEngine.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\ml\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <Private>false</Private>
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>$(VRChatPath)MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\ml\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="VRC.UI.Core">
-      <Private>false</Private>
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>$(VRChatPath)MelonLoader\Managed\VRC.UI.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\ml\Managed\VRC.UI.Core.dll</HintPath>
     </Reference>
     <Reference Include="VRC.UI.Elements">
-      <Private>false</Private>
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>$(VRChatPath)MelonLoader\Managed\VRC.UI.Elements.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\ml\Managed\VRC.UI.Elements.dll</HintPath>
     </Reference>
     <Reference Include="VRC.UI.Shared">
-      <Private>false</Private>
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>$(VRChatPath)MelonLoader\Managed\VRC.UI.Shared.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\ml\Managed\VRC.UI.Shared.dll</HintPath>
     </Reference>
     <Reference Include="VRC.Utility">
-      <Private>false</Private>
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>$(VRChatPath)MelonLoader\Managed\VRC.Utility.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
@@ -79,8 +83,8 @@
     </Reference>
     <Reference Include="VRC.UI.Elements">
       <HintPath>$(VRChatPath)MelonLoader\Managed\VRC.UI.Elements.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\3rdparty\ml\Managed\VRC.Utility.dll</HintPath>
 
 
 
@@ -88,4 +92,5 @@
     <Copy SourceFiles="$(OutDir)ReModCE.Loader.dll" DestinationFolder="$(VRChatPath)Mods" />
   </Target>
 
+</Project>  </PropertyGroup>
 </Project>

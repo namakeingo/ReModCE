@@ -2,8 +2,8 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
 		<PlatformTarget>x64</PlatformTarget>
-		<OutputPath>..\.build\$(Configuration) ($(PlatformTarget))\Modules\$(ProjectName)\</OutputPath>
-		<BaseIntermediateOutputPath>..\.build</BaseIntermediateOutputPath>
+		<OutputPath>$(SolutionDir)\.build\$(Configuration) ($(PlatformTarget))\Modules\$(ProjectName)\</OutputPath>
+		<BaseIntermediateOutputPath>$(SolutionDir)\.build</BaseIntermediateOutputPath>
 		<IntermediateOutputPath>$(BaseIntermediateOutputPath)\tmp\$(Configuration) ($(PlatformTarget))\$(ProjectName)\</IntermediateOutputPath>
 		<VRChatPath>C:\Users\laf757\SteamLibrary\steamapps\common\VRChat\</VRChatPath>
     <LangVersion>latest</LangVersion>

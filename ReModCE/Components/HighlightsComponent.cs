@@ -20,6 +20,7 @@ namespace ReModCE.Components
         private ConfigValue<Color> FriendsColor;
         private ConfigValue<Color> OthersColor;
         private ConfigValue<bool> ESPEnabled;
+        private ConfigValue<KeyCode> ESPHotkey;
         
         private ReMirroredWingToggle _espMirroredToggle;
         private ReMenuToggle _espToggle;
@@ -33,6 +34,8 @@ namespace ReModCE.Components
 
             ESPEnabled = new ConfigValue<bool>(nameof(ESPEnabled), false);
             ESPEnabled.OnValueChanged += () => _espToggle.Toggle(ESPEnabled);
+
+            ESPHotkey = new ConfigValue<KeyCode>(nameof(ESPHotkey), KeyCode.E);
 
             RiskyFunctionsManager.Instance.OnRiskyFunctionsChanged += allowed =>
             {
@@ -62,8 +65,6 @@ namespace ReModCE.Components
 
         public override void OnUiManagerInit(UiManager uiManager)
         {
-            base.OnUiManagerInit(uiManager);
-
             var menu = uiManager.MainMenu.GetCategoryPage("Visuals").GetCategory("ESP/Highlights");
             _espToggle = menu.AddToggle("ESP/Highlights", "Enable ESP (Highlight players through walls)", b =>
             {
@@ -77,33 +78,15 @@ namespace ReModCE.Components
                 $"Set your <color=#{FriendsColor.Value.ToHex()}>friends</color> highlight color",
                 () =>
                 {
-                    PopupColorInput(_friendsColorButton, "Friends", FriendsColor);
+                    VRCUiPopupManager.prop_VRCUiPopupManager_0.ShowColorInputPopup(_friendsColorButton, "Friends", FriendsColor);
                 }, ResourceManager.GetSprite("remodce.palette"));
 
             _othersColorButton = menu.AddButton($"<color=#{OthersColor.Value.ToHex()}>Others</color> Color",
                 $"Set <color=#{OthersColor.Value.ToHex()}>other</color> peoples highlight color",
                 () =>
                 {
-                    PopupColorInput(_othersColorButton, "Others", OthersColor);
+                    VRCUiPopupManager.prop_VRCUiPopupManager_0.ShowColorInputPopup(_othersColorButton, "Others", OthersColor);
                 }, ResourceManager.GetSprite("remodce.palette"));
-        }
-
-        private void PopupColorInput(ReMenuButton button, string who, ConfigValue<Color> configValue)
-        {
-            VRCUiPopupManager.prop_VRCUiPopupManager_0.ShowInputPopupWithCancel("Input hex color code",
-                $"#{configValue.Value.ToHex()}", InputField.InputType.Standard, false, "Submit",
-                (s, k, t) =>
-                {
-                    if (string.IsNullOrEmpty(s))
-                        return;
-
-                    if (!ColorUtility.TryParseHtmlString(s, out var color))
-                        return;
-
-                    configValue.SetValue(color);
-
-                    button.Text = $"<color=#{configValue.Value.ToHex()}>{who}</color> Color";
-                }, null);
         }
 
         private void ToggleESP(bool enabled)
@@ -131,6 +114,14 @@ namespace ReModCE.Components
                 return;
 
             GetHighlightsFX(player.field_Private_APIUser_0).Method_Public_Void_Renderer_Boolean_0(selectRegion.GetComponent<Renderer>(), highlighted);
+        }
+
+        public override void OnUpdate()
+        {
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(ESPHotkey))
+            {
+                ESPEnabled.SetValue(!ESPEnabled);
+            }
         }
 
         public override void OnPlayerJoined(Player player)

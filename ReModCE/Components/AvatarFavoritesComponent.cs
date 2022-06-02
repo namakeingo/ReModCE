@@ -50,6 +50,8 @@ namespace ReModCE.Components
         private ReMenuToggle _enabledToggle;
         private ConfigValue<int> MaxAvatarsPerPage;
         private ReMenuButton _maxAvatarsPerPageButton;
+        private ConfigValue<bool> AvatarSearchEnabled;
+        private ReMenuToggle _searchEnabledToggle;
 
         private List<ReAvatar> _savedAvatars;
         private readonly AvatarList _searchedAvatars;
@@ -76,6 +78,12 @@ namespace ReModCE.Components
             MaxAvatarsPerPage.OnValueChanged += () =>
             {
                 _favoriteAvatarList.SetMaxAvatarsPerPage(MaxAvatarsPerPage);
+            };
+            AvatarSearchEnabled = new ConfigValue<bool>(nameof(AvatarSearchEnabled), true);
+            AvatarSearchEnabled.OnValueChanged += () =>
+            {
+                _searchEnabledToggle.Toggle(AvatarSearchEnabled);
+                _searchedAvatarList.GameObject.SetActive(AvatarSearchEnabled);
             };
 
             _savedAvatars = new List<ReAvatar>();
@@ -117,7 +125,7 @@ namespace ReModCE.Components
             _searchedAvatarList = new ReAvatarList("ReModCE Search", this);
 
             _favoriteAvatarList = new ReAvatarList("ReModCE Favorites", this, false);
-            _favoriteAvatarList.AvatarPedestal.field_Internal_Action_3_String_GameObject_AvatarPerformanceStats_0 = new Action<string, GameObject, AvatarPerformanceStats>(OnAvatarInstantiated);
+            _favoriteAvatarList.AvatarPedestal.field_Internal_Action_4_String_GameObject_AvatarPerformanceStats_ObjectPublicBoBoBoBoBoBoBoBoBoBoUnique_0 = new Action<string, GameObject, AvatarPerformanceStats, ObjectPublicBoBoBoBoBoBoBoBoBoBoUnique>(OnAvatarInstantiated);
             _favoriteAvatarList.OnEnable += () =>
             {
                 // make sure it stays off if it should be off.
@@ -139,7 +147,6 @@ namespace ReModCE.Components
                 button.onClick = new Button.ButtonClickedEvent();
                 button.onClick.AddListener(new Action(ChangeAvatarChecked));
             }
-
 
             _searchAvatarsAction = DelegateSupport.ConvertDelegate<UnityAction<string>>(
                 (Action<string>)SearchAvatars);
@@ -163,6 +170,7 @@ namespace ReModCE.Components
 
             var menu = uiManager.MainMenu.GetMenuPage("Avatars");
             _enabledToggle = menu.AddToggle("Avatar Favorites", "Enable/Disable avatar favorites (requires VRC+)", AvatarFavoritesEnabled);
+            _searchEnabledToggle = menu.AddToggle("Avatar Search", "Enable/Disable avatar search", AvatarSearchEnabled);
             _maxAvatarsPerPageButton = menu.AddButton($"Avatars Per Page: {MaxAvatarsPerPage}",
                 "Set the maximum amount of avatars shown per page",
                 () =>
@@ -209,6 +217,8 @@ namespace ReModCE.Components
 
         public override void OnUpdate()
         {
+            if (!AvatarSearchEnabled)
+                return;
             if (_searchBox == null)
                 return;
 
@@ -217,13 +227,29 @@ namespace ReModCE.Components
                 return;
             }
 
+            // Have we already found emmVRCs search action? We can just use our override to make sure shit's right.
+            if (_emmVRCsearchAvatarsAction != null)
+            {
+                _searchBox.field_Public_UnityAction_1_String_0 = _overrideSearchAvatarsAction;
+                _searchBox.field_Public_Button_0.interactable = true;
+                return;
+            }
+
+            // Has emmVRC replaced the button functionality?
             if (!_searchBox.field_Public_Button_0.interactable)
             {
+                // Is emmVRC even loaded or has nothing replaced the button functionality?
                 if (!ReModCE.IsEmmVRCLoaded || _updatesWithoutSearch >= 10)
                 {
+                    // We already have emmVRCs search function. Make sure we don't fuck it up here.
+                    if (_emmVRCsearchAvatarsAction != null)
+                        return;
+
+                    // enable the fucker and set it to our search. We assume emmVRC is not loaded or search isn't enabled
                     _searchBox.field_Public_Button_0.interactable = true;
                     _searchBox.field_Public_UnityAction_1_String_0 = _searchAvatarsAction;
                 }
+                // Is emmVRC loaded?
                 else if (ReModCE.IsEmmVRCLoaded)
                 {
                     ++_updatesWithoutSearch;
@@ -232,13 +258,17 @@ namespace ReModCE.Components
             }
             else
             {
+                // Soo the button was enabled and emmVRC has changed the button before we reached threshold
                 if (ReModCE.IsEmmVRCLoaded && _updatesWithoutSearch < 10)
                 {
+                    // is the action null? we can't do shit with it yet
                     if (_searchBox.field_Public_UnityAction_1_String_0 == null)
                         return;
-
+                    
+                    // is this our override method? if not grab it because it's probably the emmvrc method we want!
                     if (_searchBox.field_Public_UnityAction_1_String_0.method != _overrideSearchAvatarsAction.method)
                     {
+                        // make sure we don't override the one we already had
                         if (_emmVRCsearchAvatarsAction == null)
                         {
                             _emmVRCsearchAvatarsAction = _searchBox.field_Public_UnityAction_1_String_0;
@@ -477,7 +507,7 @@ namespace ReModCE.Components
             VRCUiPopupManager.prop_VRCUiPopupManager_0.ShowAlert("ReMod CE", message);
         }
 
-        private void OnAvatarInstantiated(string url, GameObject avatar, AvatarPerformanceStats avatarPerformanceStats)
+        private void OnAvatarInstantiated(string url, GameObject avatar, AvatarPerformanceStats avatarPerformanceStats, ObjectPublicBoBoBoBoBoBoBoBoBoBoUnique unk)
         {
             _favoriteButton.Text = HasAvatarFavorited(_favoriteAvatarList.AvatarPedestal.field_Internal_ApiAvatar_0.id) ? "Unfavorite" : "Favorite";
         }
