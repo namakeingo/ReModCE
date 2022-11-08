@@ -1,3 +1,6 @@
+# VRCHAT Killed its modding community 
+# DEPRECATED
+
 # ReMod CE
 
 [![main](https://img.shields.io/github/workflow/status/RequiDev/ReModCE/main?style=for-the-badge)](https://github.com/RequiDev/ReModCE/actions/workflows/main.yml)
